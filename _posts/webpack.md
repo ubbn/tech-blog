@@ -2,7 +2,7 @@
 slug: webpack
 title: Few words about webpack
 description: About details on how to use webpack
-date: 2021-07-14
+date: '2021-07-14'
 ---
 
 # Webpack

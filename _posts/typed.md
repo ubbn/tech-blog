@@ -2,7 +2,7 @@
 slug: typed
 title: Types in Typescript
 description: About details of types present in Typescript
-date: 2021-07-04
+date: '2021-07-04'
 ---
 
 # Types
