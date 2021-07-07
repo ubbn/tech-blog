@@ -1,21 +1,21 @@
-import Head from "next/head";
-import { getAllPosts } from "../components/utils";
-import styles from "../styles/Home.module.css";
+import Head from 'next/head'
+import { getAllPosts } from '../components/utils'
+import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 interface Post {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
+  slug: string
+  title: string
+  description: string
+  date: string
 }
 
 interface Props {
-  allPosts: Array<Post>;
+  allPosts: Array<Post>
 }
 
 export default function Home(props: Props) {
-  const { allPosts } = props;
+  const { allPosts } = props
 
   return (
     <div className={styles.container}>
@@ -34,7 +34,7 @@ export default function Home(props: Props) {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
+          Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -42,9 +42,9 @@ export default function Home(props: Props) {
           {allPosts.map((post, i) => (
             <Link as={`/posts/${post.slug}`} href="/posts/[slug]" key={i}>
               <a className={styles.card}>
-              <h2>{post.title} &rarr;</h2>
-              <p>{post.description}</p>
-              <p>{post.date}</p>
+                <h2>{post.title} &rarr;</h2>
+                <p>{post.description}</p>
+                <p>{post.date}</p>
               </a>
             </Link>
           ))}
@@ -55,24 +55,23 @@ export default function Home(props: Props) {
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
           Powered by <span className={styles.logo}></span>
         </a>
       </footer>
     </div>
-  );
+  )
 }
 
 export async function getStaticProps() {
   const allPosts = getAllPosts([
-    "title",
-    "date",
-    "slug",
-    "author",
-    "description",
-  ]);
+    'title',
+    'date',
+    'slug',
+    'author',
+    'description',
+  ])
   return {
     props: { allPosts },
-  };
+  }
 }

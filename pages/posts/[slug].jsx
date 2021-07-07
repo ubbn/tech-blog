@@ -1,14 +1,14 @@
-import react from "react";
-import Head from "next/head";
-import matter from "gray-matter";
-import ReactMarkdown from "react-markdown";
-import CodeBlock from "../../components/CodeBlock";
+import react from 'react'
+import Head from 'next/head'
+import matter from 'gray-matter'
+import ReactMarkdown from 'react-markdown'
+import CodeBlock from '../../components/CodeBlock'
 import { getPostBySlug, getAllPosts } from '../../components/utils'
 
-const Post = (props) => {
-  const { post } = props;
+const Post = props => {
+  const { post } = props
 
-    return (
+  return (
     <>
       <Head>
         <title>{post.title}</title>
@@ -16,12 +16,12 @@ const Post = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* @ts-ignore */}
-      <ReactMarkdown components={CodeBlock} >{post.content}</ReactMarkdown>
+      <ReactMarkdown components={CodeBlock}>{post.content}</ReactMarkdown>
     </>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
 
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug, [
@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      post
+      post,
     },
   }
 }
@@ -44,10 +44,10 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const posts = getAllPosts(['slug'])
 
-  console.log("getPaths: ", posts)
+  console.log('getPaths: ', posts)
 
   return {
-    paths: posts.map((post) => {
+    paths: posts.map(post => {
       return {
         params: {
           slug: post.slug,
