@@ -25,7 +25,7 @@ export default function Home(props: Props) {
           name="description"
           content="Created for spreading technical knowledge"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
 
       <main className={styles.main}>
