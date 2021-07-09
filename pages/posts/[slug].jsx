@@ -4,17 +4,22 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import styles from './Post.module.css'
-import CodeBlock from '../../components/CodeBlock'
+import PostRenderer from '../../components/PostRenderer'
 import { getPostBySlug, getAllPosts } from '../../components/utils'
 import Toc from '../../components/Toc'
 
-const Container = styled.div`
-  border: 1px solid red;
+const Content = styled.div`
+  flex: 1;
+  margin-bottom: 100px;
 `
 
-const Content = styled.div`
-  border: 1px solid red;
-  flex: 1;
+const Date = styled.div`
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding: 50px;
+  font-size: 14px;
+  color: grey;
 `
 
 const Post = props => {
@@ -28,23 +33,12 @@ const Post = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <Toc toc={post.content} />
+        <Toc data={post.content} />
         <Content>
-          <ReactMarkdown remarkPlugins={[gfm]} components={CodeBlock}>
+          <ReactMarkdown remarkPlugins={[gfm]} components={PostRenderer}>
             {post.content}
           </ReactMarkdown>
-          <ReactMarkdown remarkPlugins={[gfm]} components={CodeBlock}>
-            {post.content}
-          </ReactMarkdown>
-          <ReactMarkdown remarkPlugins={[gfm]} components={CodeBlock}>
-            {post.content}
-          </ReactMarkdown>
-          <ReactMarkdown remarkPlugins={[gfm]} components={CodeBlock}>
-            {post.content}
-          </ReactMarkdown>
-          <ReactMarkdown remarkPlugins={[gfm]} components={CodeBlock}>
-            {post.content}
-          </ReactMarkdown>
+          <Date>{post.date}</Date>
         </Content>
       </div>
     </>

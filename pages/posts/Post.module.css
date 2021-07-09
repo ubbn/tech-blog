@@ -1,7 +1,6 @@
 .container {
     margin: auto;
     width: 900px;
-    border: 1px dotted blue;
     display: flex;
     flex-direction: row-reverse;
 }

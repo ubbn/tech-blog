@@ -5,12 +5,12 @@ description: Main concepts in software development security
 date: '2021-04-04'
 ---
 
-## Concepts in Security world
+# Concepts in Security world
 
-### Encoding   
+## Encoding   
 Way to tranform data for usability purpose, i.e. tranfer etc. Can be decoded with same algorithm   
 
-### Encryption
+## Encryption
 Way to keep data secret. Only to be consumed by entity that has encryption key    
 
 **Cipher** - Mechanism or engine that encrypts actual message using given algorithm. In java security api   
@@ -22,12 +22,12 @@ cipher.doFinal(message)
 ```
 
 
-### Hashing
+## Hashing
 Way to ensure integraty of data, make sure that data is not altered, same input -> same output but not otherway around. *Digest* is an output of hash function for given message and receiver validates messages integrity with received digest value. When digest is encrypted with private key, it is called *digital signature*. 
 **MD5** is popular algorithm for hashing, but known to be collided. 
 **SHA** is new and better
 
-### Obfuscation
+## Obfuscation
 Way to hide whole or part of the data and makes not to copy or replicate data  
 
 **Certificate** is file containing public key and its related information like whom it belongs to and who signed it and when to expire etc.

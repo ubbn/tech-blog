@@ -13,6 +13,12 @@ any numeric values
 ### Usage
 usage of this type
 
+#### Simple Usage
+adad
+
+#### Advanced Usage
+dadd
+
 ### Example
 it is an example
 

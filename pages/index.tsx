@@ -30,13 +30,8 @@ export default function Home(props: Props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Tlog</a>
+          Welcome to <a href="/">Tech-blog</a>
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
 
         <div className={styles.grid}>
           {allPosts.map((post, i) => (
@@ -44,7 +39,10 @@ export default function Home(props: Props) {
               <a className={styles.card}>
                 <h2>{post.title} &rarr;</h2>
                 <p>{post.description}</p>
-                <p>{post.date}</p>
+                <div
+                  style={{ width: '100%', textAlign: 'right', marginTop: 10 }}>
+                  {post.date}
+                </div>
               </a>
             </Link>
           ))}
@@ -52,12 +50,7 @@ export default function Home(props: Props) {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by <span className={styles.logo}></span>
-        </a>
+        <div>Tech Blog, 2021</div>
       </footer>
     </div>
   )
