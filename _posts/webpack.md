@@ -7,8 +7,14 @@ date: '2021-07-14'
 
 # Webpack
 
-## number
+## Type number
 any numeric values
+
+### Usage
+usage of this type
+
+### Example
+it is an example
 
 ## string
 any string

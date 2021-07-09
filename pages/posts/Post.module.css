@@ -1,12 +1,7 @@
 .container {
     margin: auto;
-    width: 700px;
-}
-
-.homeIcon {
-    left: 14%;
-    top: 25px;
-    position: absolute;
-    display: inline-block;
-    cursor: pointer;
+    width: 900px;
+    border: 1px dotted blue;
+    display: flex;
+    flex-direction: row-reverse;
 }
