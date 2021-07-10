@@ -17,13 +17,26 @@ const Date = styled.div`
   margin: auto;
   width: 100%;
   text-align: center;
-  padding: 50px;
+  padding: 150px 0;
   font-size: 14px;
   color: grey;
 `
 
 const Post = props => {
   const { post } = props
+  const [scrolling, setScrolling] = React.useState(false);
+  const [scrollTop, setScrollTop] = React.useState(0);
+  
+  React.useEffect(() => {
+    const onScroll = e => {
+      setScrollTop(e.target.documentElement.scrollTop);
+      setScrolling(e.target.documentElement.scrollTop > scrollTop);
+      console.log("scrolling: ", e.target.documentElement.scrollTop)
+    };
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollTop]);
 
   return (
     <>
@@ -32,14 +45,16 @@ const Post = props => {
         <meta name="description" content={post.description} />
         <link rel="icon" href="/logo.svg" />
       </Head>
-      <div className={styles.container}>
-        <Toc data={post.content} />
-        <Content>
-          <ReactMarkdown remarkPlugins={[gfm]} components={PostRenderer}>
-            {post.content}
-          </ReactMarkdown>
-          <Date>{post.date}</Date>
-        </Content>
+      <div>
+        <div className={styles.container}>
+          <Toc data={post.content} />
+          <Content>
+            <ReactMarkdown remarkPlugins={[gfm]} components={PostRenderer}>
+              {post.content}
+            </ReactMarkdown>
+          </Content>
+        </div>
+        <Date>{post.date}</Date>
       </div>
     </>
   )
