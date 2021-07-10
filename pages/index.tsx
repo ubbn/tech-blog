@@ -29,9 +29,7 @@ export default function Home(props: Props) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="/">Tech-blog</a>
-        </h1>
+        <h1 className={styles.title}>Techincal Notes</h1>
 
         <div className={styles.grid}>
           {allPosts.map((post, i) => (
@@ -39,10 +37,7 @@ export default function Home(props: Props) {
               <a className={styles.card}>
                 <h2>{post.title} &rarr;</h2>
                 <p>{post.description}</p>
-                <div
-                  style={{ width: '100%', textAlign: 'right', marginTop: 10 }}>
-                  {post.date}
-                </div>
+                <div>{post.date}</div>
               </a>
             </Link>
           ))}
