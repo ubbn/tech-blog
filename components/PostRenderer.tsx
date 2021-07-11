@@ -26,13 +26,21 @@ const H3 = styled.h3`
   cursor: pointer;
   cursor: pointer;
   :hover {
-    color: #00000040;
+    color: #00000080;
   }
   :hover:after {
     margin-left: 5px;
-    color: #00000040;
+    color: #00000080;
     content: '##';
   }
+`
+
+const InlineCode = styled.code`
+  background-color: #dadde1;
+  padding: 1px 3.4px;
+  border: .1rem solid rgba(0,0,0,.1);
+  border-radius: 4px;
+  line-height: 1.8;
 `
 
 const AddId = ({ data }) => {
@@ -83,9 +91,9 @@ const PostRenderer = {
         {String(children).replace(/\n$/, '')}
       </SyntaxHighlighter>
     ) : (
-      <code className={className} {...props}>
+      <InlineCode {...props}>
         {children}
-      </code>
+      </InlineCode>
     )
   },
   h1(props) {

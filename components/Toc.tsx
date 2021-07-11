@@ -83,6 +83,22 @@ const renderers = {
   },
 }
 
+export const parseToc = data => {
+  const toc = []
+  let comment = false
+  data
+  .split('\n')
+  .forEach((line, i) => {
+    if (line && line.startsWith('```')) {
+      comment = !comment
+    }
+    if (!comment && line.startsWith('#')) {
+      toc.push(`${line.trim()}::${i + 1}`)
+    }
+  })
+  return toc.join('\n')
+}
+
 const Toc = props => {
   const { data } = props
   const router = useRouter()
@@ -91,19 +107,13 @@ const Toc = props => {
     router.push('/')
   }
 
-  const toc = data
-    .split('\n')
-    .map((v, i) => `${v.trim()}::${i + 1}`)
-    .filter(v => v.startsWith('#'))
-    .join('\n')
-
   return (
     <Container>
       <div className={styles.homeIcon} onClick={goHome}>
         <img src="../icon-home.svg" alt="Go home" width={24} height={24} />
       </div>
       <Table>
-        <ReactMarkdown components={renderers}>{toc}</ReactMarkdown>
+        <ReactMarkdown components={renderers}>{parseToc(data)}</ReactMarkdown>
       </Table>
     </Container>
   )
