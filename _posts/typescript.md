@@ -1,11 +1,11 @@
 ---
 slug: typescript
-title: Typescript
+title: Typescript-ийн үндэс
 description: Javascript програмчлалыг дараагийн түвшинд гаргасан хэл
 date: '2021-07-11'
 ---
 
-# Typescript
+# Typescript-ийн үндэс
 Typescript хэлийг анх Microsoft-оос санаачлан гаргасан бөгөөд 2012 онд нийтэд танилцуулсанаас хойш одоо хүртэл идэвхитэй open-source лицензийн дор хөгжүүлж байна. Одоогоор хамгийн сүүлийн хувилбар 4.2. Албан [веб хуудас руу нь зочлох](https://www.typescriptlang.org/).
 
 ## Яагаад Typescript гэж?
@@ -51,6 +51,21 @@ const car = {
 console.log(car.price)
 ```
 
+## Суулгах, ажиллуулах
+
+Мэдээж **nodejs** эхлээд суусан байх шаардлагатай ба `npm`, `yarn` package manager-үүдийн аль нэгийг ашиглан суулгана. 
+```bash
+npm install -g typescript
+// or
+yarn add global typescript
+```
+Ажиллуулахдаа эхлээд **typescript compiler**-ийг дуудах ба энэ нь харгалзах javascript файлыг үүсгэдэг (адилхан нэртэй `.js` өргөтгөлтэй). Энэ процесс нь бүх typescript бичиглэлүүдийг цэвэр javascript руу хөрвүүлж бровзер эсвэл node runtime дээр шууд ажиллахад бэлэн болгодог.
+
+```bash
+tsc test.ts   # compile хийх
+node test.js  # үүссэн js файлыг ажиллуулах
+```
+
 ## Basic types
  Хувьсагчийг зарлахдаа заавал харгалзах төрлийг тодорхойлох ёстой. Ихэнхи програмчлалын хэлнээс ялгаатай нь хувьсагчийн төрлийг хувьсагчийн нэрний араас тодорхойлох цэг тавьсны дараа тодорхойлж бичдэг.
 
@@ -62,6 +77,7 @@ console.log(car.price)
 ```ts
 const name: string
 const height: number = 199
+const weight = 65.5 // number төрөл 
 ```
 ### Primitive types
 Typescript-ийн үндсэн төрөлд `number`, `string`, `boolean` ордог. Эдгээрийг **primitive types** гэх бөгөөд зөвхөн нэг л төрлийн мэдээлэл хадгалдаг.
@@ -90,7 +106,7 @@ const isGood: boolean = true
 Нэг төрлийн олон утгуудыг илэрхийлэх төрөл. Доорхи 2 бичиглэл ижил.
 ```ts
 const names: string[]
-// Энэ generic ашигласан бичиглэл
+// Generic ашигласан бичиглэл
 const names: Array<string>
 ```
 
@@ -264,12 +280,86 @@ printText("centre");
 ```
 
 ## null and undefined
-Javascript-тэй адилаар хоосон утгыг `null`, утга оноогоогүй төлөвийг `undefined` аар тэмдэглэдэг. Хувьсагчийн нэрний араас `!` нэмсэнээр утга нь `null` эсвэл `undefined` байгаа эсэхийг typescript compiler автоматаар шалгадаг.
+Javascript-тэй адилаар хоосон утгыг `null`, утга оноогоогүй төлөвийг `undefined` аар тэмдэглэдэг. Бүх төрлийн хувьсагчид ийм утгатай байж болох ба үүнийг шалгахгүйгээр өнгөрөөх нь олон алдааны эх үүсвэр болдог.
+
+### strictNullChecks on
+Энэ тохируулгыг хийснээр compiler нь хувьсагч `null` эсвэл `undefined` утгатай байгаа эсэхийг заавал шалгахыг шаарддаг.
+
+```ts
+// Доорхи мөр алдаа заана
+function greetMe(name: string | null) {
+  // Error: Object is possibly null
+  console.log("Hello, " + name.toUpperCase());
+}
+
+// Зөв хувилбар нь
+function greetMe(name: string | null) {
+  if (name === null) {
+    // do nothing
+  } else {
+    console.log("Hello, " + name.toUpperCase());
+  }
+}
+```
+
+### strictNullChecks off
+Энэ сонголт хийснээр compiler хатуу шалгалт хийхгүй ба runtime үед алдаа гарах магадлал өндөрсөнө. Тохируулга хийхэд root фолдерт байрлах `tsconfig.json` файлд доорхи өөрчлөлтийг хийнэ:
+
+```json
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "strictNullChecks": false
+  }
+  ...
+}
+```
+
+
+### Non-null assertion
+Хувьсагчийн нэрний араас `!` нэмсэнээр утга нь `null` эсвэл `undefined` байгаа эсэхийг typescript compiler автоматаар шалгадаг.
 ```ts
 let variable: string | null
 variable = null
 // No error, just prints undefined
 console.log(variable!.toLowerCase() 
 ```
+
+## Enums
+Хувьсагчийг зөвхөн цөөхөн хэдэн тогтмол утга авдаг болгоход `enum`-ийг ашиглаж болно. 
+
+```ts
+enum Position {
+  Right,
+  Left,
+  Up,
+  Down,
+}
+
+function move(position: Position) {
+  // ...
+}
+
+move(Position.Left)
+```
+
+**Enum**-д зарласан тогтмолууд автоматаар 0-оос эхлэсэн индекс авдаг ба эхлэх утгыг хамгийн эхний тогтмолд утга оноож өгч зааж болно. Эсвэл бүгдэнд нь **string** төрлийн утга оноож ч болно. 
+
+```ts
+enum Position {
+  Right = 1,
+  Left,   // 2
+  Up,     // 3
+  Down,   // 4
+}
+
+enum Position {
+  Right = "Right",
+  Left = "Left",
+  Up = "Up",
+  Down = "Down",
+}
+```
+
 
 
