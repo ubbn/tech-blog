@@ -135,10 +135,10 @@ let b: number
 
 // Error: Type known is not assignable to number
 b = a
-if (typeof a === 'number')
+if (typeof a === 'number') {
     // Өмнө нь тоон төрөл мөн эсэхийг шалгасан тул OK
     b = a 
-
+}
 ```
 
 ### never
@@ -156,4 +156,21 @@ function keepProcessing(): never {
 }
 ```
 
+## Generic
+Функцийн параметрүүдийн төрлүүд болон буцаах утгын төрлийг ерөнхий байдлаар тодорхойлж болох ба үүнийг **generic function** гэж нэрлэдэг. 
+
+```ts
+// Уг функц ямар нэгэн төрлийн аrray-г параметрээр
+// аваад яг тийм төрлийн нэг ширхэг утга буцаах нь
+// T нь ямар ч үсэг, эсвэл түлхүүр үгнүүдтэй 
+// давхцаагүй нэр байж болно
+function getFirstElement<T>(arr: T[]): T {
+  return arr[0]
+}
+
+const s = getFirstElement(["a", "b", "c"]) // "a"
+const n = getFirstElement([1, 2, 3])       // 1
+```
+### Constraints
+Generic function-ийн ерөнхий төрлийг нарийвчлан зааж болдог. 
 
