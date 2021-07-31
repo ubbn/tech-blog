@@ -38,12 +38,24 @@ const H3 = styled.h3`
 const InlineCode = styled.code`
   background-color: #dadde1;
   padding: 1px 3.4px;
-  border: .1rem solid rgba(0,0,0,.1);
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   line-height: 1.8;
 `
 
-const AddId = ({ data }) => {
+type HeadingProps = {
+  children: React.ReactChildren
+  level: number
+  node: {
+    position: {
+      start: {
+        line: number
+      }
+    }
+  }
+}
+
+const Heading = (props: HeadingProps) => {
   const router = useRouter()
 
   const {
@@ -54,33 +66,39 @@ const AddId = ({ data }) => {
         start: { line },
       },
     },
-  } = data
+  } = props
 
   const onClick = () => router.push('#' + line)
 
   if (level === 1)
     return (
-      <H1 onClick={onClick} id={line}>
+      <H1 onClick={onClick} id={String(line)}>
         {children}
       </H1>
     )
   if (level === 2)
     return (
-      <H2 onClick={onClick} id={line}>
+      <H2 onClick={onClick} id={String(line)}>
         {children}
       </H2>
     )
   if (level === 3)
     return (
-      <H3 onClick={onClick} id={line}>
+      <H3 onClick={onClick} id={String(line)}>
         {children}
       </H3>
     )
-  return <h4 id={line}>{children}</h4>
+  return <h4 id={String(line)}>{children}</h4>
+}
+
+type PostProps = {
+  inline: boolean
+  className: string
+  children: React.ReactChildren
 }
 
 const PostRenderer = {
-  code({ node, inline, className, children, ...props }) {
+  code({ inline, className, children, ...props }: PostProps) {
     const match = /language-(\w+)/.exec(className || '')
     return !inline && match ? (
       <SyntaxHighlighter
@@ -91,22 +109,20 @@ const PostRenderer = {
         {String(children).replace(/\n$/, '')}
       </SyntaxHighlighter>
     ) : (
-      <InlineCode {...props}>
-        {children}
-      </InlineCode>
+      <InlineCode {...props}>{children}</InlineCode>
     )
   },
-  h1(props) {
-    return <AddId data={props} />
+  h1(props: HeadingProps) {
+    return <Heading {...props} />
   },
-  h2(props) {
-    return <AddId data={props} />
+  h2(props: HeadingProps) {
+    return <Heading {...props} />
   },
-  h3(props) {
-    return <AddId data={props} />
+  h3(props: HeadingProps) {
+    return <Heading {...props} />
   },
-  h4(props) {
-    return <AddId data={props} />
+  h4(props: HeadingProps) {
+    return <Heading {...props} />
   },
 }
 

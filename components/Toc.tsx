@@ -38,7 +38,7 @@ const Table = styled.div`
   }
 `
 
-const parse = value => {
+const parse = (value: string) => {
   if (!value) return {}
   const last = value.lastIndexOf('::')
   return {
@@ -47,48 +47,55 @@ const parse = value => {
   }
 }
 
-const AddHref = ({ data }) => {
-  const { content, id } = data
+type AddHrefProps = {
+  content?: string
+  id?: string
+}
+
+type HeadingProps = {
+  children: any[]
+}
+
+const AddHref = (props: AddHrefProps) => {
+  const { content, id } = props
   return <a href={'#' + id}>{content}</a>
 }
 
 const renderers = {
-  h1({ children }) {
+  h1({ children }: HeadingProps) {
     return (
       <h1>
-        <AddHref data={parse(children[0])} />
+        <AddHref {...parse(children[0] as string)} />
       </h1>
     )
   },
-  h2({ children }) {
+  h2({ children }: HeadingProps) {
     return (
       <h2>
-        <AddHref data={parse(children[0])} />
+        <AddHref {...parse(children[0] as string)} />
       </h2>
     )
   },
-  h3({ children }) {
+  h3({ children }: HeadingProps) {
     return (
       <h3>
-        <AddHref data={parse(children[0])} />
+        <AddHref {...parse(children[0] as string)} />
       </h3>
     )
   },
-  h4({ children }) {
+  h4({ children }: HeadingProps) {
     return (
       <h4>
-        <AddHref data={parse(children[0])} />
+        <AddHref {...parse(children[0] as string)} />
       </h4>
     )
   },
 }
 
-export const parseToc = data => {
-  const toc = []
+export const parseToc = (data: string) => {
+  const toc: string[] = []
   let comment = false
-  data
-  .split('\n')
-  .forEach((line, i) => {
+  data.split('\n').forEach((line, i) => {
     if (line && line.startsWith('```')) {
       comment = !comment
     }
@@ -99,7 +106,11 @@ export const parseToc = data => {
   return toc.join('\n')
 }
 
-const Toc = props => {
+type TocProps = {
+  data: string
+}
+
+const Toc = (props: TocProps) => {
   const { data } = props
   const router = useRouter()
 
