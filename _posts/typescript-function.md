@@ -11,21 +11,21 @@ date: '2021-07-20'
 ## Функц зарлах
 Typescript-д функцийг `function` түлхүүр үгээр эсвэл ES6-ийн **arrow funcion** `() => ` бичиглэлийг ашиглан зарлаж болно. 
 
-### Keyword function
+### function түлхүүр үг
 ```ts
 // Загвар
 function <нэр>(<фараметр> : <төрөл>): <буцаах төрөл> {
-    // ...
+  // ...
 }
 
 // Жишээ 1
 function sum(a: number, b: number): number {
-    return a + b
+  return a + b
 }
 
 // Жишээ 2
 const myFunc = function(a: number): void {
-    // ...
+  // ...
 }
 ```
 
@@ -34,18 +34,19 @@ const myFunc = function(a: number): void {
 ```ts
 // Загвар
 <нэр> = (<фараметр> : <төрөл>): <буцаах төрөл> => {
-    // ...
+  // ...
 }
 
 // Жишээ
 let sum = (a: number, b: number): number => {
-    return a + b
+  return a + b
 }
 ```
 
 ### Function type
 **Type alias** ашиглан функц төрөл зарлаж болно.
 
+Дан ганц функц төрөл зарлахад
 ```ts
 // Утга буцаадаггүй функцийн төрөл
 type voidFunc = () => void
@@ -54,24 +55,24 @@ type voidFunc = () => void
 type toStrFunc = (a: number) => string
 
 const hevleh: toStrFunc = function(value: number) {
-    return `Value: ${value}`
+  return `Value: ${value}`
 }
 
 hevleh(45) // Value: 45
+```
 
-// Нийлмэл төрөл
-type DescribableFunction = {
-  description: string;
-  (arg: number): boolean;
-};
-
-function doSomething(func: DescribableFunction) {
-  console.log(func.description + " returned " + func(12));
+Давхар өөр төрөл дотор зарлаж болно
+```ts
+type Doubler = {
+  name: string
+  isFauly: boolean
+  getValue: () => number
+  addValuet: (n: number) => void
 }
 ```
 
 ### Declare түлхүүр үг
-Javascript дээр бичигдсэн кодоос (ялангуяа external library) функц, тогтмолуудыг typescript-д дуудаж ашиглахад **compiler**-т таниулахын тулд `declare` түлхүүр үгийг хэрэглэдэг.
+Javascript дээр бичигдсэн кодоос (ялангуяа external library, module)-оос функц, тогтмолуудыг typescript-д дуудаж ашиглахдаа **compiler**-т таниулахын тулд `declare` түлхүүр үгийг хэрэглэдэг.
 
 ```ts
 // Both exist outside of current codebase
@@ -84,11 +85,11 @@ declare const someConstant: any
 
 ```ts
 function greet(name: string): void {
-    console.log(`Hello ${name}`)
+  console.log(`Hello ${name}`)
 }
 
 const greet = (name: string) => {
-    console.log(`Hello ${name}`)
+  console.log(`Hello ${name}`)
 }
 ```
 
@@ -97,11 +98,11 @@ Typescript функцийг заавал дамжуулах шаардлагаг
 
 ```ts
 function greet(name?: string) {
-    if (name === undefined) {
-        console.log("Hello anonymous")
-    } else {
-        console.log(`Hello ${name.toUpperCase()}`)
-    }
+  if (name === undefined) {
+    console.log("Hello anonymous")
+  } else {
+    console.log(`Hello ${name.toUpperCase()}`)
+  }
 }
 
 greet("Simon")      // Hello Simon
@@ -136,8 +137,8 @@ let b: number
 // Error: Type known is not assignable to number
 b = a
 if (typeof a === 'number') {
-    // Өмнө нь тоон төрөл мөн эсэхийг шалгасан тул OK
-    b = a 
+  // Өмнө нь тоон төрөл мөн эсэхийг шалгасан тул OK
+  b = a 
 }
 ```
 
@@ -146,24 +147,22 @@ if (typeof a === 'number') {
 
 ```ts
 function throwError(errorMsg: string): never { 
-    throw new Error(errorMsg)
+  throw new Error(errorMsg)
 } 
 
 function keepProcessing(): never { 
-    while (true) { 
-        console.log('It never ends.')
-    }
+  while (true) { 
+    console.log('It never ends.')
+  }
 }
 ```
 
-## Generic
-Функцийн параметрүүдийн төрлүүд болон буцаах утгын төрлийг ерөнхий байдлаар тодорхойлж болох ба үүнийг **generic function** гэж нэрлэдэг. 
+## Generics
+Функцийн параметрүүдийн төрлүүд болон буцаах утгын төрлийг ерөнхий байдлаар тодорхойлж болох ба үүнийг **generic function** гэж нэрлэдэг. Ингэснээр функцийн дахин ашиглалт сайжирч код цэгцтэй цомхон болно. **Generic** төрлийг түлхүүр үгнүүдтэй давхцаагүй бол ямар ч үсэг, үгээр тэмдэглэж болох ба тогтсон стандарт нь том ганц үсгээр тэмдэглэдэг. Зарлалтыг функцийн нэрний араас залгуулан `<>` хаалтан дотор бичнэ. 
 
 ```ts
 // Уг функц ямар нэгэн төрлийн аrray-г параметрээр
 // аваад яг тийм төрлийн нэг ширхэг утга буцаах нь
-// T нь ямар ч үсэг, эсвэл түлхүүр үгнүүдтэй 
-// давхцаагүй нэр байж болно
 function getFirstElement<T>(arr: T[]): T {
   return arr[0]
 }
@@ -171,6 +170,79 @@ function getFirstElement<T>(arr: T[]): T {
 const s = getFirstElement(["a", "b", "c"]) // "a"
 const n = getFirstElement([1, 2, 3])       // 1
 ```
+
 ### Constraints
-Generic function-ийн ерөнхий төрлийг нарийвчлан зааж болдог. 
+**Generic** функцийн ерөнхий төрлийг нарийвчлан зааж болдог. Үүний тулд `extends` түлхүүр үгийг ашиглан бусад төрлөөс удамшуулсан байхаар нарийвчилан тодорхойлж болдог. 
+
+Жишээ нь функцийг дараах байдлаар бичихэд төрлийг нь нарийвчилж заагаагүйгээс болж алдаа заана. 
+```ts
+function loggingIdentity<MyType>(arg: MyType): MyType {
+  console.log(arg.length) // Алдаа: MyType төрөлд length гэсэн property байхгүй
+  return arg 
+}
+```
+
+Уг төрлийг доорх байдлаар нарийвчлан зааж алдааг залруулж болно. 
+```ts
+interface Lengthy {
+  length: number
+}
+
+function loggingIdentity<MyType extends Lengthy>(arg: MyType): MyType {
+  console.log(arg.length)
+  return arg 
+}
+```
+Хэдэн ч төрлийг хамт тодорхойлж болно.
+```ts
+function myGenericFunc<T, U, V>(args1: T, args2: U, args3: V): V {
+  // ...
+}
+```
+
+## Call signatures
+Javascript-д функц property-тэй байж болдог бол typescript-д уг бичиглэлийг зөвшөөрдөггүй. Харин оронд нь шинээр төрөл зарлахдаа property-үүдийн хамт доорхи бөөрөнхий хаалт бүхий тусгай бичиглэл ашиглан тодорхойлж болно. Үүнийг **call signature** гэж нэрлэдэг. 
+
+```ts
+type DescribableFunction = {
+  description: string
+  (someArg: number): boolean
+}
+
+function doSomething(func: DescribableFunction) {
+  console.log(func.description + " returned " + func(10))
+}
+```
+
+Функц төрөл зарлалтаас ялгаатай нь, нэр өгөхгүй мөн `=>` тэмдэглэгээний оронд `:` ийг ашигладаг. 
+```ts
+type MoreType = {
+  name: string
+  getValue: () => number      // function type
+  (n: number): void           // call signature
+}
+
+function execute(func: MoreType): void {
+  const name = func.name
+  const value = func.getValue()
+  func(20)                    // call signature
+}
+```
+
+## Construct signatures
+Утга буцаадаг **call signature**-ийн өмнө `new` түлхүүр үгийг нэмсэн бичиглэлийг **construc signature** гэх ба шинээр object үүсгэдэг функц гэж ойлгож болно. функцийг дуудахдаа урд нь `new` мөн түлхүүр үгийг бичнэ. 
+
+```ts
+interface CallOrConstruct {
+  new (s: string): Date;
+  (n?: number): number;
+}
+
+function fn(ctor: CallOrConstruct) {
+  ctor(10)              // call signature is called
+  new ctor("shine")     // construct signature is called
+}
+```
+
+
 

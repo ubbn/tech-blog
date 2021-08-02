@@ -1,7 +1,7 @@
 ---
 slug: vim
 title: Vim
-description: Modified vi editor
+description: Modified vi text editor-ийн түгээмэл хэрэглэгддэг shortkeys
 date: '2017-03-04'
 ---
 
