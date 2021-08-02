@@ -1,7 +1,7 @@
 ---
 slug: typescript-function
 title: Typescript functions
-description: Typescript-ийн цөм болох функцийг хэрхэн хэрэглэх вэ
+description: Typescript-ийн цөм болох функцийг хэрхэн хэрэглэх талаар
 date: '2021-07-20'
 ---
 
@@ -143,7 +143,7 @@ if (typeof a === 'number') {
 ```
 
 ### never
-Энэ төрөл зөвхөн функцийн буцаах төрөлд хэрэглэгддэг ба тухайн функц юу ч буцаахгүй буюу төгсгөлөө хүртэл ажиллахгүй харин дундаасаа алдаа заах эсвэл төгсгөлгүй цикл ажиллуулдаг байж ч болно. 
+Энэ төрөл зөвхөн функцийн буцаах төрөлд хэрэглэгддэг ба тухайн функц юу ч буцаахгүй буюу төгсгөлөө хүртэл ажиллахгүй, харин дундаасаа алдаа заах эсвэл төгсгөлгүй цикл ажиллуулдаг байж ч болно. 
 
 ```ts
 function throwError(errorMsg: string): never { 
@@ -201,7 +201,7 @@ function myGenericFunc<T, U, V>(args1: T, args2: U, args3: V): V {
 ```
 
 ## Call signatures
-Javascript-д функц property-тэй байж болдог бол typescript-д уг бичиглэлийг зөвшөөрдөггүй. Харин оронд нь шинээр төрөл зарлахдаа property-үүдийн хамт доорхи бөөрөнхий хаалт бүхий тусгай бичиглэл ашиглан тодорхойлж болно. Үүнийг **call signature** гэж нэрлэдэг. 
+Javascript-д функц property-тэй байж болдог бол typescript-д уг бичиглэлийг зөвшөөрдөггүй. Харин оронд нь, шинээр төрөл зарлахдаа property-үүдийн хамт доорхи бөөрөнхий хаалт бүхий тусгай бичиглэл ашиглан тодорхойлж болно. Үүнийг **call signature** гэж нэрлэдэг. 
 
 ```ts
 type DescribableFunction = {
@@ -230,7 +230,7 @@ function execute(func: MoreType): void {
 ```
 
 ## Construct signatures
-Утга буцаадаг **call signature**-ийн өмнө `new` түлхүүр үгийг нэмсэн бичиглэлийг **construc signature** гэх ба шинээр object үүсгэдэг функц гэж ойлгож болно. функцийг дуудахдаа урд нь `new` мөн түлхүүр үгийг бичнэ. 
+Утга буцаадаг **call signature**-ийн өмнө `new` түлхүүр үгийг нэмсэн бичиглэлийг **construct signature** гэх ба шинээр обьект үүсгэдэг функц гэж ойлгож болно. **Call signature** функцийг дуудахдаа урд нь мөн `new` түлхүүр үгийг бичнэ. 
 
 ```ts
 interface CallOrConstruct {
@@ -239,8 +239,8 @@ interface CallOrConstruct {
 }
 
 function fn(ctor: CallOrConstruct) {
-  ctor(10)              // call signature is called
-  new ctor("shine")     // construct signature is called
+  ctor(10)              // call signature-ийг дуудаж байна
+  new ctor("shine")     // construct signature-ийг дуудаж байна
 }
 ```
 

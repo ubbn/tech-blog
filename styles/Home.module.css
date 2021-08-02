@@ -114,4 +114,13 @@
     width: 100%;
     flex-direction: column;
   }
+  .card {
+    width: 90%;
+  }
+  .container {
+    height: unset;
+  }
+  .title {
+    font-size: 2em;
+  }
 }
